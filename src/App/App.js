@@ -21,8 +21,8 @@ export default function App () {
       };
     };
 
-  let onInputFieldChange = async (value, page=0) => {
-    if(!isMorePresent || value.length === 0) return;
+  let onInputFieldChange = async (value, page=0, forcefullCallApi) => {
+    if(value.length === 0 || (!isMorePresent && !forcefullCallApi)) return;
     setFetchLoading(_ => true)
     try{
     let searchString = value.replace(" ", "+")
@@ -71,7 +71,7 @@ export default function App () {
     setIsMorePresent(true)
   }, [inputValue])
 
-  const delayQuery = debounce((val,page) => onInputFieldChange(val,page), 300);
+  const delayQuery = debounce((val,page) => onInputFieldChange(val,page, true), 300);
 
   return (
     <div className="flex-1 flex-col items-center flex">
@@ -84,6 +84,9 @@ export default function App () {
         <UsersData usersData={usersData} fetchData={delayQuery} inputValue={inputValue} fetchLoading={fetchLoading} isMorePresent={isMorePresent} />
         : null
       }
+      {!fetchLoading && inputValue.length > 0 && usersData.length ===0 ? <div className="absolute bottom-[20px] w-[100%] my-[12px] flex justify-center">
+        <span className="text-[12px] text-[#d3d3d3]">No data present!</span>
+      </div>:null}
       
       <div className={`flex items-start p-[8px] bg-[#ba0c0c] text-[#e4e4e4] rounded error ${error.show ? "show-error" : ""}`}>
         <div>
