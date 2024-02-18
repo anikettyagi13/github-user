@@ -1,0 +1,48 @@
+.input-container {
+  width: 30%;
+  max-width: 200px;
+  display: flex;
+  border-radius: 12px;
+  transition: .3s ease-in-out;
+  position:absolute;
+  top: 50%;
+  right: 50%;
+  border: 2px solid #ba0c0c;
+  translate: 50% -50%;
+  background-color: white;
+  align-items: center;
+  padding-right: 20px;
+  min-width: 150px;
+}
+.input-container .main-input{
+  padding: 12px;
+  flex-grow: 1;
+  min-width:100px;
+  border-radius: 12px;
+}
+.input-container .main-input:focus{
+  outline: 0px;
+}
+.input-container:focus-within{
+  border: 2px solid #ba0c0c;
+}
+
+.input-container:focus-within,
+.input-container#active
+{
+  max-width: 400px;
+  min-width: 300px;
+  width: 50%;
+  border-radius: 8px;
+  position: absolute;
+  top: 40px;
+}
+
+@media only screen and (max-width: 600px) {
+  .input-container:focus-within,
+  .input-container#active
+  {
+    /* left: 50%; */
+    top: 80px;
+  }
+}
